@@ -1,8 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RepositoryUrl>https://github.com/ExpenseOn/expenseon.repository.mongodb</RepositoryUrl>
+    <Company>ExpenseOn</Company>
+    <Authors>ExpenseOn Team</Authors>
+    <Product>Expenseon Repository Mongodb</Product>
+    <PackageId>Expenseon.Repository.Mongodb</PackageId>
+    <Description>Repository Pattern Implementation for MongoDB</Description>
+    <PackageProjectUrl>https://github.com/ExpenseOn/expenseon.repository.mongodb</PackageProjectUrl>
+    <PackageTags>mongodb repository csharp</PackageTags>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
