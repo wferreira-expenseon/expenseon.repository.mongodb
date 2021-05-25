@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using ExpenseOn.Repository.MongoDB.Extensions;
-using MongoDB.Driver;
-
-namespace ExpenseOn.Repository.MongoDB.Core 
+﻿namespace ExpenseOn.Repository.MongoDB 
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using System.Threading.Tasks;
+    using global::MongoDB.Driver;
+
     public class Repository<TDocument> : IRepository<TDocument> where TDocument : class
     {
         protected IMongoCollection<TDocument> DbSet { get; }
@@ -157,14 +156,14 @@ namespace ExpenseOn.Repository.MongoDB.Core
             return DbSet.UpdateMany(filterDefinition, updateDefinition).ModifiedCount > 0;
         }
 
-        public bool UpdateFields<TField>(params (Expression<Func<TDocument, TField>> fieldSelector, TField value)[] fieldsToUpdate)
+        public bool UpdateFields(params (Expression<Func<TDocument, object>> fieldSelector, object value)[] fieldsToUpdate)
         {
             var (filterDefinition, updateDefinition) = GetUpdateFieldDefinition(fieldsToUpdate);
 
             return DbSet.UpdateMany(filterDefinition, updateDefinition).ModifiedCount > 0;
         }
 
-        public bool UpdateFields<TField>(Expression<Func<TDocument, bool>> predicate, params (Expression<Func<TDocument, TField>> fieldSelector, TField value)[] fieldsToUpdate)
+        public bool UpdateFields(Expression<Func<TDocument, bool>> predicate, params (Expression<Func<TDocument, object>> fieldSelector, object value)[] fieldsToUpdate)
         {
             var (filterDefinition, updateDefinition) = GetUpdateFieldDefinition(predicate, fieldsToUpdate);
 
@@ -320,14 +319,14 @@ namespace ExpenseOn.Repository.MongoDB.Core
             return (await DbSet.UpdateManyAsync(filterDefinition, updateDefinition)).ModifiedCount > 0;
         }
 
-        public async Task<bool> UpdateFieldsAsync<TField>(params (Expression<Func<TDocument, TField>> fieldSelector, TField value)[] fieldsToUpdate)
+        public async Task<bool> UpdateFieldsAsync(params (Expression<Func<TDocument, object>> fieldSelector, object value)[] fieldsToUpdate)
         {
             var (filterDefinition, updateDefinition) = GetUpdateFieldDefinition(fieldsToUpdate);
 
             return (await DbSet.UpdateManyAsync(filterDefinition, updateDefinition)).ModifiedCount > 0;
         }
 
-        public async Task<bool> UpdateFieldsAsync<TField>(Expression<Func<TDocument, bool>> predicate, params (Expression<Func<TDocument, TField>> fieldSelector, TField value)[] fieldsToUpdate)
+        public async Task<bool> UpdateFieldsAsync(Expression<Func<TDocument, bool>> predicate, params (Expression<Func<TDocument, object>> fieldSelector, object value)[] fieldsToUpdate)
         {
             var (filterDefinition, updateDefinition) = GetUpdateFieldDefinition(predicate, fieldsToUpdate);
 

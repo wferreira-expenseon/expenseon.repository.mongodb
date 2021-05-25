@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-
-namespace ExpenseOn.Repository.MongoDB.Core
+﻿namespace ExpenseOn.Repository.MongoDB
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq.Expressions;
+    using System.Threading.Tasks;
+
     public interface IRepository<TDocument> where TDocument : class
     {
         bool Any();
@@ -26,8 +26,8 @@ namespace ExpenseOn.Repository.MongoDB.Core
         bool Update(ICollection<TDocument> entities);
         bool UpdateField<TField>(Expression<Func<TDocument, TField>> fieldSelector, TField value);
         bool UpdateField<TField>(Expression<Func<TDocument, bool>> predicate, Expression<Func<TDocument, TField>> fieldSelector, TField value);
-        bool UpdateFields<TField>(params (Expression<Func<TDocument, TField>> fieldSelector, TField value)[] fieldsToUpdate);
-        bool UpdateFields<TField>(Expression<Func<TDocument, bool>> predicate, params (Expression<Func<TDocument, TField>> fieldSelector, TField value)[] fieldsToUpdate);
+        bool UpdateFields(params (Expression<Func<TDocument, object>> fieldSelector, object value)[] fieldsToUpdate);
+        bool UpdateFields(Expression<Func<TDocument, bool>> predicate, params (Expression<Func<TDocument, object>> fieldSelector, object value)[] fieldsToUpdate);
         bool Delete(object key);
         bool Delete(TDocument entity);
         bool Delete(Expression<Func<TDocument, bool>> predicate);
@@ -51,8 +51,8 @@ namespace ExpenseOn.Repository.MongoDB.Core
         Task<bool> UpdateAsync(ICollection<TDocument> entities);
         Task<bool> UpdateFieldAsync<TField>(Expression<Func<TDocument, TField>> fieldSelector, TField value);
         Task<bool> UpdateFieldAsync<TField>(Expression<Func<TDocument, bool>> predicate, Expression<Func<TDocument, TField>> fieldSelector, TField value);
-        Task<bool> UpdateFieldsAsync<TField>(params (Expression<Func<TDocument, TField>> fieldSelector, TField value)[] fieldsToUpdate);
-        Task<bool> UpdateFieldsAsync<TField>(Expression<Func<TDocument, bool>> predicate, params (Expression<Func<TDocument, TField>> fieldSelector, TField value)[] fieldsToUpdate);
+        Task<bool> UpdateFieldsAsync(params (Expression<Func<TDocument, object>> fieldSelector, object value)[] fieldsToUpdate);
+        Task<bool> UpdateFieldsAsync(Expression<Func<TDocument, bool>> predicate, params (Expression<Func<TDocument, object>> fieldSelector, object value)[] fieldsToUpdate);
         Task<bool> DeleteAsync(object key);
         Task<bool> DeleteAsync(TDocument entity);
         Task<bool> DeleteAsync(Expression<Func<TDocument, bool>> predicate);

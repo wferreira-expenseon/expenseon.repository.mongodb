@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace ExpenseOn.Repository.MongoDB.Extensions
+﻿namespace ExpenseOn.Repository.MongoDB
 {
+    using System.Collections.Generic;
+
     internal static class EnumerableExtensions
     {
         public static IEnumerable<T[]> BatchesOf<T>(this IEnumerable<T> source, int batchSize)

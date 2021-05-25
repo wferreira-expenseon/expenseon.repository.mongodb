@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
-
-namespace ExpenseOn.Repository.MongoDB.Extensions
+﻿namespace ExpenseOn.Repository.MongoDB
 {
+    using System;
+    using System.Linq;
+    using System.Reflection;
+    using global::MongoDB.Bson.Serialization;
+    using global::MongoDB.Driver;
+
     /// <summary>
     ///     Provides extension methods for <see cref="IMongoCollection{TDocument}"/> instances.
     /// </summary>
