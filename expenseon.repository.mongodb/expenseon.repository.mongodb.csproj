@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <RepositoryUrl>https://github.com/ExpenseOn/expenseon.repository.mongodb</RepositoryUrl>
     <Company>ExpenseOn</Company>
     <Authors>ExpenseOn Team</Authors>
