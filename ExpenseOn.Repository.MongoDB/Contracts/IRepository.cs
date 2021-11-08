@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq.Expressions;
     using System.Threading.Tasks;
+    using global::MongoDB.Driver;
 
     public interface IRepository<TDocument> where TDocument : class
     {
@@ -14,9 +15,13 @@
         TDocument Insert(TDocument entity);
         bool Insert(ICollection<TDocument> entities);
         IReadOnlyList<TDocument> GetAll();
+        IReadOnlyList<TDocument> GetAll(params (Expression<Func<TDocument, object>> selector, SortDirection direction)[] orderByList);
         (IReadOnlyList<TDocument> entities, long count) GetAll(int skip, int take);
+        (IReadOnlyList<TDocument> entities, long count) GetAll(int skip, int take, params (Expression<Func<TDocument, object>> selector, SortDirection direction)[] orderByList);
         IReadOnlyList<TDocument> Get(Expression<Func<TDocument, bool>> predicate);
+        IReadOnlyList<TDocument> Get(Expression<Func<TDocument, bool>> predicate, params (Expression<Func<TDocument, object>> selector, SortDirection direction)[] orderByList);
         (IReadOnlyList<TDocument> entities, long count) Get(Expression<Func<TDocument, bool>> predicate, int skip, int take);
+        (IReadOnlyList<TDocument> entities, long count) Get(Expression<Func<TDocument, bool>> predicate, int skip, int take, params (Expression<Func<TDocument, object>> selector, SortDirection direction)[] orderByList);
         TDocument Find(object key);
         TDocument FirstOrDefault();
         TDocument FirstOrDefault(Expression<Func<TDocument, bool>> predicate);
@@ -39,9 +44,13 @@
         Task<TDocument> InsertAsync(TDocument entity);
         Task<bool> InsertAsync(ICollection<TDocument> entities);
         Task<IReadOnlyList<TDocument>> GetAllAsync();
+        Task<IReadOnlyList<TDocument>> GetAllAsync(params (Expression<Func<TDocument, object>> selector, SortDirection direction)[] orderByList);
         Task<(IReadOnlyList<TDocument> entities, long count)> GetAllAsync(int skip, int take);
+        Task<(IReadOnlyList<TDocument> entities, long count)> GetAllAsync(int skip, int take, (Expression<Func<TDocument, object>> selector, SortDirection direction)[] orderByList);
         Task<IReadOnlyList<TDocument>> GetAsync(Expression<Func<TDocument, bool>> predicate);
+        Task<IReadOnlyList<TDocument>> GetAsync(Expression<Func<TDocument, bool>> predicate, (Expression<Func<TDocument, object>> selector, SortDirection direction)[] orderByList);
         Task<(IReadOnlyList<TDocument> entities, long count)> GetAsync(Expression<Func<TDocument, bool>> predicate, int skip, int take);
+        Task<(IReadOnlyList<TDocument> entities, long count)> GetAsync(Expression<Func<TDocument, bool>> predicate, int skip, int take, (Expression<Func<TDocument, object>> selector, SortDirection direction)[] orderByList);
         Task<TDocument> FindAsync(object key);
         Task<TDocument> FirstOrDefaultAsync();
         Task<TDocument> FirstOrDefaultAsync(Expression<Func<TDocument, bool>> predicate);
