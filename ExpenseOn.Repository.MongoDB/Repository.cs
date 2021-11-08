@@ -68,10 +68,23 @@
             return DbSet.Find().ToList();
         }
 
+        public IReadOnlyList<TDocument> GetAll(params (Expression<Func<TDocument, object>> selector, SortDirection direction)[] orderByList)
+        {
+            return DbSet.Find().OrderBy(orderByList).ToList();
+        }
+
         public (IReadOnlyList<TDocument> entities, long count) GetAll(int skip, int take)
         {
             var count = DbSet.EstimatedDocumentCount();
             var entities = DbSet.Find().Skip(skip).Limit(take).ToList();
+
+            return (entities, count);
+        }
+
+        public (IReadOnlyList<TDocument> entities, long count) GetAll(int skip, int take, params (Expression<Func<TDocument, object>> selector, SortDirection direction)[] orderByList)
+        {
+            var count = DbSet.EstimatedDocumentCount();
+            var entities = DbSet.Find().Skip(skip).Limit(take).OrderBy(orderByList).ToList();
 
             return (entities, count);
         }
@@ -81,11 +94,23 @@
             return DbSet.Find(predicate).ToList();
         }
 
+        public IReadOnlyList<TDocument> Get(Expression<Func<TDocument, bool>> predicate, params (Expression<Func<TDocument, object>> selector, SortDirection direction)[] orderByList)
+        {
+            return DbSet.Find(predicate).OrderBy(orderByList).ToList();
+        }
+
         public (IReadOnlyList<TDocument> entities, long count) Get(Expression<Func<TDocument, bool>> predicate, int skip, int take)
         {
-            var filter = Builders<TDocument>.Filter.Where(predicate);
             var count = DbSet.CountDocuments(predicate);
-            var entities = DbSet.Find(filter).Skip(skip).Limit(take).ToList();
+            var entities = DbSet.Find(predicate).Skip(skip).Limit(take).ToList();
+
+            return (entities, count);
+        }
+
+        public (IReadOnlyList<TDocument> entities, long count) Get(Expression<Func<TDocument, bool>> predicate, int skip, int take, params (Expression<Func<TDocument, object>> selector, SortDirection direction)[] orderByList)
+        {
+            var count = DbSet.CountDocuments(predicate);
+            var entities = DbSet.Find(predicate).Skip(skip).Limit(take).OrderBy(orderByList).ToList();
 
             return (entities, count);
         }
@@ -234,10 +259,23 @@
             return await DbSet.Find().ToListAsync();
         }
 
+        public async Task<IReadOnlyList<TDocument>> GetAllAsync(params (Expression<Func<TDocument, object>> selector, SortDirection direction)[] orderByList)
+        {
+            return await DbSet.Find().OrderBy(orderByList).ToListAsync();
+        }
+
         public async Task<(IReadOnlyList<TDocument> entities, long count)> GetAllAsync(int skip, int take)
         {
             var count = await DbSet.EstimatedDocumentCountAsync();
             var entities = await DbSet.Find().Skip(skip).Limit(take).ToListAsync();
+
+            return (entities, count);
+        }
+
+        public async Task<(IReadOnlyList<TDocument> entities, long count)> GetAllAsync(int skip, int take, params (Expression<Func<TDocument, object>> selector, SortDirection direction)[] orderByList)
+        {
+            var count = await DbSet.EstimatedDocumentCountAsync();
+            var entities = await DbSet.Find().Skip(skip).Limit(take).OrderBy(orderByList).ToListAsync();
 
             return (entities, count);
         }
@@ -247,10 +285,23 @@
             return await DbSet.Find(predicate).ToListAsync();
         }
 
+        public async Task<IReadOnlyList<TDocument>> GetAsync(Expression<Func<TDocument, bool>> predicate, params (Expression<Func<TDocument, object>> selector, SortDirection direction)[] orderByList)
+        {
+            return await DbSet.Find(predicate).OrderBy(orderByList).ToListAsync();
+        }
+
         public async Task<(IReadOnlyList<TDocument> entities, long count)> GetAsync(Expression<Func<TDocument, bool>> predicate, int skip, int take)
         {
             var count = await DbSet.CountDocumentsAsync(predicate);
             var entities = await DbSet.Find(predicate).Skip(skip).Limit(take).ToListAsync();
+
+            return (entities, count);
+        }
+
+        public async Task<(IReadOnlyList<TDocument> entities, long count)> GetAsync(Expression<Func<TDocument, bool>> predicate, int skip, int take, params (Expression<Func<TDocument, object>> selector, SortDirection direction)[] orderByList)
+        {
+            var count = await DbSet.CountDocumentsAsync(predicate);
+            var entities = await DbSet.Find(predicate).Skip(skip).Limit(take).OrderBy(orderByList).ToListAsync();
 
             return (entities, count);
         }
