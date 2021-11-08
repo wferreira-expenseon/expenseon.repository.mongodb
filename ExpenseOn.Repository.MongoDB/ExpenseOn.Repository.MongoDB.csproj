@@ -11,9 +11,9 @@
     <Description>Repository Pattern Implementation for MongoDB</Description>
     <PackageProjectUrl>https://github.com/ExpenseOn/expenseon.repository.mongodb</PackageProjectUrl>
     <PackageTags>mongodb repository csharp</PackageTags>
-    <AssemblyVersion>1.1.1</AssemblyVersion>
-    <FileVersion>1.1.1.0</FileVersion>
-    <Version>1.1.1</Version>
+    <AssemblyVersion>1.1.2</AssemblyVersion>
+    <FileVersion>1.1.2.0</FileVersion>
+    <Version>1.1.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
