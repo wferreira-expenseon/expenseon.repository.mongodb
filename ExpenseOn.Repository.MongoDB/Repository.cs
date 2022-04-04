@@ -1,4 +1,4 @@
-﻿namespace ExpenseOn.Repository.MongoDB 
+﻿namespace ExpenseOn.Repository.MongoDB
 {
     using System;
     using System.Collections.Generic;
@@ -11,12 +11,19 @@
     {
         protected IMongoCollection<TDocument> DbSet { get; }
 
-        public Repository(IMongoDatabase mongoDatabase)
+        public Repository(IMongoDatabase mongoDatabase) : this(mongoDatabase, null)
+        {            
+        }
+
+        public Repository(IMongoDatabase mongoDatabase, string collectionName)
         {
             if (mongoDatabase == null)
                 throw new ArgumentNullException(nameof(mongoDatabase));
 
-            DbSet = mongoDatabase.GetCollection<TDocument>(typeof(TDocument).Name);
+            if (string.IsNullOrWhiteSpace(collectionName))
+                collectionName = typeof(TDocument).Name;
+
+            DbSet = mongoDatabase.GetCollection<TDocument>(collectionName);
         }
 
         public bool Any()
